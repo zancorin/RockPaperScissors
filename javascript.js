@@ -24,7 +24,7 @@ function getComputerChoice() {
     {
         return "Paper";
     }
-    
+
     else if (randomNumber == 3) 
     {
         return "Scissors";
@@ -90,8 +90,33 @@ function playRound(playerSelection, computerSelection){
 }
 
 
-const playerSelection = "rOCk";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+//Assigns the amount of rounds to be played to the totalRounds variable.
+const totalRounds = 5;
 
 
+/*
+Iterates the following according to the totalRounds variable.
+Prompts player to make a selection between 'rock, paper, or scissors'.
+Assigns result to playerSelection.
+Then assigns computerSelection based on getComputerChoice function.
+Calls the playRound function using playerSelection and computerSelecton as arguments.
+Prints a blank line to better see results in console.
+Prints Game Over message.
+*/
+function game() {
+
+    for(i = 0; i < totalRounds; i++)
+    {
+        const playerSelection = prompt("Rock, Paper, or Scissors?\n");
+        const computerSelection = getComputerChoice();
+        console.log(playRound(playerSelection, computerSelection));
+        console.log("");
+        
+    }
+
+    console.log("Game Over. Refresh to play again.");
+}
+
+
+
+game();
