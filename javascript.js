@@ -5,6 +5,8 @@ Player is prompted to choose rock paper or scissors by typing it in while having
 it be case insensitive.
 Invalid player selection will display as such
 Result of each game is displayed in the console. (Tie, win, or lose)
+Points are added (if there's a winner that round).
+Prints winner of game.
 */
 
 
@@ -53,8 +55,8 @@ via the capitalizeFirstLetter function.
 Displays the selections to the console.
 Checks for invalid playerSelection, and if true, returns string stating such.
 Otherwise, if selections are the same (checks for tie-breaker), returns a string stating such.
-Otherwise, if a player win condition returns true, returns string stating player wins.
-Otherwise returns string stating computer wins.
+Otherwise, if a player win condition returns true, returns string stating player wins. Adds points.
+Otherwise returns string stating computer wins. Adds points.
 */
 function playRound(playerSelection, computerSelection){
 
@@ -67,7 +69,7 @@ function playRound(playerSelection, computerSelection){
        (playerSelection !== "Paper") &&
        (playerSelection !== "Scissors"))
     {
-        return ("Invalid selection.");
+        return ("Invalid selection. No points rewarded.");
     }
 
     else if(playerSelection === computerSelection)
@@ -79,14 +81,53 @@ function playRound(playerSelection, computerSelection){
              (playerSelection === "Paper" && computerSelection === "Rock") ||
              (playerSelection === "Scissors" && computerSelection === "Paper"))
     {
-        return ("Player wins.");
+        addPoints("Player");
+        return ("Player wins. +1 point.");
     }
 
     else
     {
-        return ("Computer wins.")
+        addPoints("Computer");
+        return ("Computer wins. +1 point")
     }
 
+}
+
+//Initialize and set playerPoints and computerPoints to 0
+let playerPoints = 0;
+let computerPoints = 0;
+
+//Adds points
+function addPoints(winner)
+{
+    if (winner === "Player")
+    {
+        playerPoints ++;
+    }
+    else if (winner === "Computer")
+    {
+        computerPoints ++;
+    }
+
+}
+
+//Displays the final winner
+function displayWinner()
+{
+    if(playerPoints === computerPoints)
+    {
+        return ("The game resulted in a tie.");
+    }
+
+    else if (playerPoints > computerPoints)
+    {
+        return ("Player has won the game!");
+    }
+    
+    else 
+    {
+        return ("Computer has won the game!");
+    }
 }
 
 
@@ -101,7 +142,8 @@ Assigns result to playerSelection.
 Then assigns computerSelection based on getComputerChoice function.
 Calls the playRound function using playerSelection and computerSelecton as arguments.
 Prints a blank line to better see results in console.
-Prints Game Over message.
+
+Then after the rounds are complete, prints Game Over message with final score and winner
 */
 function game() {
 
@@ -114,7 +156,11 @@ function game() {
         
     }
 
-    console.log("Game Over. Refresh to play again.");
+    console.log("Game Over.");
+    console.log("Final score:");
+    console.log(`Player: ${playerPoints} - Computer: ${computerPoints}`);
+    console.log(displayWinner());
+    console.log("Refresh to play again.");
 }
 
 
