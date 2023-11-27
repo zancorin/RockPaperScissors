@@ -1,13 +1,33 @@
 /* 
-Rock Paper Scissors (console version)
-5 rounds are played in a game.
-Player is prompted to choose rock paper or scissors by typing it in while having
-it be case insensitive.
-Invalid player selection will display as such
-Result of each game is displayed in the console. (Tie, win, or lose)
+Rock Paper Scissors (UI version)
+Player is prompted to choose rock paper or scissors by clicking one of the images
+Result of each game is displayed on screen. (Tie, win, or lose)
 Points are added (if there's a winner that round).
-Prints winner of game.
+Prints winner of game when one gets 5 points.
 */
+
+//Grab Body Element
+const body = document.body;
+
+//Create Button Elements//
+const btnRock = document.createElement("button");
+const btnPaper = document.createElement("button");
+const btnScissors = document.createElement("button");
+
+//Add Class to Elements
+btnRock.classList.add("btn");
+btnPaper.classList.add("btn");
+btnScissors.classList.add("btn");
+
+//Add Text to Elements
+btnRock.textContent = "Rock";
+btnPaper.textContent = "Paper";
+btnScissors.textContent = "Scissors";
+
+//Ammend to DOM
+body.appendChild(btnRock);
+body.appendChild(btnPaper);
+body.appendChild(btnScissors);
 
 
 
@@ -131,9 +151,6 @@ function displayWinner()
 }
 
 
-//Assigns the amount of rounds to be played to the totalRounds variable.
-const totalRounds = 5;
-
 
 /*
 Iterates the following according to the totalRounds variable.
@@ -147,14 +164,18 @@ Then after the rounds are complete, prints Game Over message with final score an
 */
 function game() {
 
-    for(i = 0; i < totalRounds; i++)
-    {
+
         const playerSelection = prompt("Rock, Paper, or Scissors?\n");
+ 
         const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection));
+        try{console.log(playRound(playerSelection, computerSelection));}
+        catch(error)
+        {
+            console.log("Game cancelled.");
+            
+        }
         console.log("");
         
-    }
 
     console.log("Game Over.");
     console.log("Final score:");
