@@ -30,6 +30,25 @@ body.appendChild(btnPaper);
 body.appendChild(btnScissors);
 
 
+//Button Click Events which start a round depending on which button was pressed.
+
+//Rock Button Click Event
+btnRock.addEventListener('click', () => {
+    alert("CLICKED ROCK");
+}
+)
+
+//Paper Button Click Event
+btnPaper.addEventListener('click', () => {
+    alert("CLICKED PAPER");
+}
+)
+
+//Scissors Button Click Event
+btnScissors.addEventListener('click', () => {
+    alert("CLICKED SCISSORS");
+}
+)
 
 //Randomizes a number between 1 and 3
 //Returns "Rock", "Paper", or "Scissors" depending which number was chosen
