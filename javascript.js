@@ -5,14 +5,52 @@ Result of each game is displayed on screen. (Tie, win, or lose)
 Points are added (if there's a winner that round).
 Prints winner of game when one gets 5 points.
 */
+//ANIMATION
 
 //Grab Body Element
 const body = document.body;
 
+//CREATE MAIN CONTAINER//flexit
+const container = document.createElement("div");
+container.classList.add("container");
+container.setAttribute('style',`display: flex; 
+                                flex-direction: column;`)
+
+//CREATE PLAYER CONTAINER... CREATE ITS' CLASS... 
+const playerDiv = document.createElement("div");
+playerDiv.classList.add("playerDiv");
+//Main player side container
+//its styling
+playerDiv.setAttribute('style',`display: flex; 
+                                flex-direction: column;
+                                padding:10px;`)
+
+//CREATE MIDDLE DISPLAY
+const centerDisplay = document.createElement("div");
+centerDisplay.classList.add("centerDisplay");
+//style
+centerDisplay.setAttribute('style',`height:125px;
+                                    text-align: center;
+                                    padding:5px;`);
+
+//CENTERDISPLAYTEXT
+const centerDisplayText = document.createElement("h2");
+centerDisplayText.textContent = "Player 1 wins the round!";
+
+
+
+
+
+
+
+
+//PLAYER BUTTONS
 //Create Button Elements//
 const btnRock = document.createElement("button");
 const btnPaper = document.createElement("button");
 const btnScissors = document.createElement("button");
+
+
 
 //Add Class to Elements
 btnRock.classList.add("btn");
@@ -25,28 +63,73 @@ btnPaper.textContent = "Paper";
 btnScissors.textContent = "Scissors";
 
 //Ammend to DOM
-body.appendChild(btnRock);
-body.appendChild(btnPaper);
-body.appendChild(btnScissors);
+playerDiv.appendChild(btnRock);
+playerDiv.appendChild(btnPaper);
+playerDiv.appendChild(btnScissors);
 
+
+//const playerButtons = document.querySelectorAll('.btn');
+btnRock.setAttribute('style', 'height: 100px;');
+btnPaper.setAttribute('style', 'height: 100px;');
+btnScissors.setAttribute('style', 'height: 100px;');
+
+
+///STYLING
+
+container.appendChild(playerDiv);
+body.appendChild(container);
+container.appendChild(centerDisplay);
+centerDisplay.appendChild(centerDisplayText);
+
+const playerLabel = document.createElement("p");
+playerLabel.textContent = 'PLAYER';
+playerDiv.appendChild(playerLabel);
+
+playerLabel.setAttribute('style', 'text-align: center;');
 
 //Button Click Events which start a round depending on which button was pressed.
 
+/*
+
+CLICK BUTTON
+DISABLE BUTTONS()
+Launch Buttons() // Players and Computers hit in the  middle
+Calculate Result() //Player win, Computer win, or tie ,increment accordingly
+
+
+
+*/
+/*
+function DisableButtons()
+{
+    btnRock.disabled = true;
+    btnPaper.disabled = true;
+    btnScissors.disabled = true;
+}
+*/
+
 //Rock Button Click Event
 btnRock.addEventListener('click', () => {
-    alert("CLICKED ROCK");
+    //DisableButtons();
+    const playerSelection = "Rock";
+   // alert("CLICKED ROCK");
+   centerDisplayText.textContent = playRound("Rock", getComputerChoice());
 }
 )
 
 //Paper Button Click Event
 btnPaper.addEventListener('click', () => {
-    alert("CLICKED PAPER");
+    //DisableButtons();
+    //alert("CLICKED PAPER");
+    centerDisplayText.textContent = playRound("Paper", getComputerChoice());
 }
 )
 
 //Scissors Button Click Event
 btnScissors.addEventListener('click', () => {
-    alert("CLICKED SCISSORS");
+    //DisableButtons();
+    //alert("CLICKED SCISSORS");
+    centerDisplayText.textContent = playRound("Scissors", getComputerChoice());
 }
 )
 
@@ -73,18 +156,6 @@ function getComputerChoice() {
 
 }
 
-/*
- Takes in a string as an argument
- Makes the string lowercase
- Then capitalizes the first letter of the string
- This allows player input to be case insensitive
- */
-function capitalizeFirstLetter(someString) {
-    
-    someString = someString.toLowerCase();
-    someString = someString.charAt(0).toUpperCase() + someString.slice(1); 
-    return someString;
-}
 
 
 /*
@@ -99,8 +170,7 @@ Otherwise returns string stating computer wins. Adds points.
 */
 function playRound(playerSelection, computerSelection){
 
-    playerSelection = capitalizeFirstLetter(playerSelection);
-
+    
     console.log(`Player selected ${playerSelection}`);
     console.log(`Computer selected ${computerSelection}`);
 
@@ -183,24 +253,17 @@ Then after the rounds are complete, prints Game Over message with final score an
 */
 function game() {
 
-
-        const playerSelection = prompt("Rock, Paper, or Scissors?\n");
+//playRound();
+        //const playerSelection = prompt("Rock, Paper, or Scissors?\n");
  
-        const computerSelection = getComputerChoice();
-        try{console.log(playRound(playerSelection, computerSelection));}
-        catch(error)
-        {
-            console.log("Game cancelled.");
-            
-        }
-        console.log("");
-        
+       // const computerSelection = getComputerChoice();
 
-    console.log("Game Over.");
-    console.log("Final score:");
-    console.log(`Player: ${playerPoints} - Computer: ${computerPoints}`);
-    console.log(displayWinner());
-    console.log("Refresh to play again.");
+
+   /// console.log("Game Over.");
+   // console.log("Final score:");
+  //  console.log(`Player: ${playerPoints} - Computer: ${computerPoints}`);
+  //  console.log(displayWinner());
+  //  console.log("Refresh to play again.");
 }
 
 
