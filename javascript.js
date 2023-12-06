@@ -1,135 +1,109 @@
 /* 
-Rock Paper Scissors (UI version)
-Player is prompted to choose rock paper or scissors by clicking one of the images
+Rock Paper Scissors Revisited (UI version)
+Create DOM structure and styles via JS
+Player is prompted to choose rock, paper, or scissors by clicking one of the buttons
 Result of each game is displayed on screen. (Tie, win, or lose)
-Points are added (if there's a winner that round).
+Points are added and displayed (if there's a winner that round).
 Prints winner of game when one gets 5 points.
+Disables buttons, and displays message adivising player to refresh page to play again.
 */
-//ANIMATION
 
-//Grab Body Element
+//GRAB BODY ELEMENT
 const body = document.body;
 
-//CREATE MAIN CONTAINER//flexit
+//CREATE MAIN CONTAINER DIV - ADD CLASS - ADD FLEXBOX STYLE
 const container = document.createElement("div");
 container.classList.add("container");
 container.setAttribute('style',`display: flex; 
                                 flex-direction: column;`)
 
-//CREATE PLAYER CONTAINER... CREATE ITS' CLASS... 
-const playerDiv = document.createElement("div");
-playerDiv.classList.add("playerDiv");
-//Main player side container
-//its styling
-playerDiv.setAttribute('style',`display: flex; 
-                                flex-direction: column;
-                                padding:10px;`)
+//CREATE GAME CONTAINER DIV (FOR BUTTONS AND SCORE) - ADD CLASS - ADD FLEXBOX STYLE
+const gameDiv = document.createElement("div");
+gameDiv.classList.add("gameDiv");
+gameDiv.setAttribute('style',`display: flex; 
+                              flex-direction: column;
+                              padding:10px;`);
 
-//CREATE MIDDLE DISPLAY
-const centerDisplay = document.createElement("div");
-centerDisplay.classList.add("centerDisplay");
-//style
-centerDisplay.setAttribute('style',`height:125px;
-                                    text-align: center;
-                                    padding:5px;`);
+//CREATE LOG DISPLAY DIV - ADD CLASS - ADD STYLE
+const logDisplay = document.createElement("div");
+logDisplay.classList.add("logDisplay");
+logDisplay.setAttribute('style',`height:125px;
+                                 text-align: center;
+                                 padding:5px;`);
 
-//CENTERDISPLAYTEXT
-const centerDisplayText = document.createElement("h2");
-centerDisplayText.textContent = "Player 1 wins the round!";
+//SCORE DECLARATION AND INITIALIZATION
+let playerScore = 0;
+let computerScore = 0;
 
+//CREATE P TEXT ELEMENT FOR DISPLAYING SCORES - SET DEFAULT - ADD STYLE
+const playerLabel = document.createElement("p");
+playerLabel.textContent = `PLAYER SCORE: ${playerScore} | COMPUTER SCORE: ${computerScore}`;
+playerLabel.setAttribute('style', 'text-align: center;');
 
-
-
-
+//CREATE H2 TEXT ELEMENT FOR DISPLAYING LOG MESSAGES. SET IT TO BLANK.
+const logDisplayText = document.createElement("h2");
+logDisplayText.textContent = "";
 
 
 
 //PLAYER BUTTONS
-//Create Button Elements//
+//CREATE BUTTON ELEMENTS
 const btnRock = document.createElement("button");
 const btnPaper = document.createElement("button");
 const btnScissors = document.createElement("button");
 
-
-
-//Add Class to Elements
+//ADD CLASS TO BUTTON ELEMENTS
 btnRock.classList.add("btn");
 btnPaper.classList.add("btn");
 btnScissors.classList.add("btn");
 
-//Add Text to Elements
+//ADD TEXT TO BUTTON ELEMENTS
 btnRock.textContent = "Rock";
 btnPaper.textContent = "Paper";
 btnScissors.textContent = "Scissors";
 
-//Ammend to DOM
-playerDiv.appendChild(btnRock);
-playerDiv.appendChild(btnPaper);
-playerDiv.appendChild(btnScissors);
-
-
-//const playerButtons = document.querySelectorAll('.btn');
+//ADD STYLE TO BUTTON ELEMENTS
 btnRock.setAttribute('style', 'height: 100px;');
 btnPaper.setAttribute('style', 'height: 100px;');
 btnScissors.setAttribute('style', 'height: 100px;');
 
+//APPEND BUTTONS TO GAMEDIV
+gameDiv.appendChild(btnRock);
+gameDiv.appendChild(btnPaper);
+gameDiv.appendChild(btnScissors);
 
-///STYLING
-
-container.appendChild(playerDiv);
+//APPEND ELEMENTS TO THEIR PARENTS
+container.appendChild(gameDiv);
+container.appendChild(logDisplay);
+logDisplay.appendChild(logDisplayText);
+gameDiv.appendChild(playerLabel);
 body.appendChild(container);
-container.appendChild(centerDisplay);
-centerDisplay.appendChild(centerDisplayText);
-
-const playerLabel = document.createElement("p");
-playerLabel.textContent = 'PLAYER';
-playerDiv.appendChild(playerLabel);
-
-playerLabel.setAttribute('style', 'text-align: center;');
-
-//Button Click Events which start a round depending on which button was pressed.
-
-/*
-
-CLICK BUTTON
-DISABLE BUTTONS()
-Launch Buttons() // Players and Computers hit in the  middle
-Calculate Result() //Player win, Computer win, or tie ,increment accordingly
 
 
 
-*/
-/*
 function DisableButtons()
 {
     btnRock.disabled = true;
     btnPaper.disabled = true;
     btnScissors.disabled = true;
 }
-*/
+
 
 //Rock Button Click Event
 btnRock.addEventListener('click', () => {
-    //DisableButtons();
-    const playerSelection = "Rock";
-   // alert("CLICKED ROCK");
-   centerDisplayText.textContent = playRound("Rock", getComputerChoice());
+   logDisplayText.textContent = playRound("Rock", getComputerChoice());
 }
 )
 
 //Paper Button Click Event
 btnPaper.addEventListener('click', () => {
-    //DisableButtons();
-    //alert("CLICKED PAPER");
-    centerDisplayText.textContent = playRound("Paper", getComputerChoice());
+    logDisplayText.textContent = playRound("Paper", getComputerChoice());
 }
 )
 
 //Scissors Button Click Event
 btnScissors.addEventListener('click', () => {
-    //DisableButtons();
-    //alert("CLICKED SCISSORS");
-    centerDisplayText.textContent = playRound("Scissors", getComputerChoice());
+    logDisplayText.textContent = playRound("Scissors", getComputerChoice());
 }
 )
 
@@ -158,30 +132,19 @@ function getComputerChoice() {
 
 
 
-/*
-Takes in the playerSelection and computerSelection strings as arguments.
-Formats the playerSelection string to have the first letter Uppercase, and the rest lowercase
-via the capitalizeFirstLetter function.
-Displays the selections to the console.
-Checks for invalid playerSelection, and if true, returns string stating such.
-Otherwise, if selections are the same (checks for tie-breaker), returns a string stating such.
-Otherwise, if a player win condition returns true, returns string stating player wins. Adds points.
-Otherwise returns string stating computer wins. Adds points.
-*/
+
+
+//Checks if tie, win, or lose.
+//Adds points, displays score, and ends game when player or computer reaches 5 wins
+
 function playRound(playerSelection, computerSelection){
 
     
-    console.log(`Player selected ${playerSelection}`);
-    console.log(`Computer selected ${computerSelection}`);
+    //console.log(`Player selected ${playerSelection}`);
+    //console.log(`Computer selected ${computerSelection}`);
 
-    if((playerSelection !== "Rock") &&
-       (playerSelection !== "Paper") &&
-       (playerSelection !== "Scissors"))
-    {
-        return ("Invalid selection. No points rewarded.");
-    }
 
-    else if(playerSelection === computerSelection)
+    if(playerSelection === computerSelection)
     {
         return ("Tie. No points rewarded.");
     }
@@ -191,81 +154,51 @@ function playRound(playerSelection, computerSelection){
              (playerSelection === "Scissors" && computerSelection === "Paper"))
     {
         addPoints("Player");
-        return ("Player wins. +1 point.");
+        playerLabel.textContent = `PLAYER SCORE: ${playerScore} | COMPUTER SCORE: ${computerScore}`;
+        gameDiv.appendChild(playerLabel);
+        if(playerScore === 5)
+        {
+            DisableButtons();
+            return ("PLAYER HAS WON THE GAME! REFRESH PAGE TO RESTART");
+        }
+        else
+        {
+            return (`Player: ${playerSelection} | Computer: ${computerSelection}. Player wins. +1 point.`);
+        }
     }
 
     else
     {
         addPoints("Computer");
-        return ("Computer wins. +1 point")
+        playerLabel.textContent = `PLAYER SCORE: ${playerScore} | COMPUTER SCORE: ${computerScore}`;
+        gameDiv.appendChild(playerLabel);
+        if(computerScore === 5)
+        {
+            DisableButtons();
+            return ("COMPUTER HAS WON THE GAME! REFRESH PAGE TO RESTART");
+        }
+        else 
+        {
+            return (`Player: ${playerSelection} | Computer: ${computerSelection}. Computer wins. +1 point`);
+        }
+
     }
+
 
 }
 
-//Initialize and set playerPoints and computerPoints to 0
-let playerPoints = 0;
-let computerPoints = 0;
+
 
 //Adds points
 function addPoints(winner)
 {
     if (winner === "Player")
     {
-        playerPoints ++;
+        playerScore ++;
     }
     else if (winner === "Computer")
     {
-        computerPoints ++;
+        computerScore ++;
     }
 
 }
-
-//Displays the final winner
-function displayWinner()
-{
-    if(playerPoints === computerPoints)
-    {
-        return ("The game resulted in a tie.");
-    }
-
-    else if (playerPoints > computerPoints)
-    {
-        return ("Player has won the game!");
-    }
-    
-    else 
-    {
-        return ("Computer has won the game!");
-    }
-}
-
-
-
-/*
-Iterates the following according to the totalRounds variable.
-Prompts player to make a selection between 'rock, paper, or scissors'.
-Assigns result to playerSelection.
-Then assigns computerSelection based on getComputerChoice function.
-Calls the playRound function using playerSelection and computerSelecton as arguments.
-Prints a blank line to better see results in console.
-
-Then after the rounds are complete, prints Game Over message with final score and winner
-*/
-function game() {
-
-//playRound();
-        //const playerSelection = prompt("Rock, Paper, or Scissors?\n");
- 
-       // const computerSelection = getComputerChoice();
-
-
-   /// console.log("Game Over.");
-   // console.log("Final score:");
-  //  console.log(`Player: ${playerPoints} - Computer: ${computerPoints}`);
-  //  console.log(displayWinner());
-  //  console.log("Refresh to play again.");
-}
-
-
-
-game();
